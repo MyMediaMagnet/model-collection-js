@@ -2,8 +2,17 @@
 
 var expect = require('chai').expect;
 let Model = require('../dist/models/Model').default
+let Query = require('../dist/classes/Query').default
 
 describe('#Model', function() {
+
+    it('it should not be able to be called directly', function() {
+        expect(() => new Model()).to.throw(TypeError);
+    });
+
+    it('its parent should not be able to be called directly', function() {
+        expect(() => new Query()).to.throw(TypeError);
+    });
 
     it('it should collect an array of User models', function() {
         let array = [{id: 1, name: 'Jack', email: 'jack@jones.ca'}, {id: 1, name: 'Stacy', email: 'stacy@jones.ca'}]
