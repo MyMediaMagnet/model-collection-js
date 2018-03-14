@@ -12,8 +12,9 @@ Javascript enabled Models and Collections to reflect Laravel workflow
   `npm install model-collection-js`
 
 ## Usage
+(Would appreciate advice on allowing easier imports without folder structure)
 
-    import Collection from 'model-collection-js'
+    import Collection from 'model-collection-js/dist/classes/Collection'
     let some_array = [1, 2, 3, 4]
     let collection = new Collection(some_array)
     collection.first() // 1
