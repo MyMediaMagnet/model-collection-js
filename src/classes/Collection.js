@@ -19,11 +19,13 @@ class Collection {
     }
   
     // Find an item in the array based on 'id'
-    find(id) {
-      this.items.forEach((item) => {
-        if (item.id === id) return item;
-      })
-      
+    find(id, key = 'id') {
+      for(let i = 0; i < this.items.length; i++) {
+        if (this.items[i][key] === id) {
+          return this.items[i];
+        }
+      }
+
       return null
     }
   

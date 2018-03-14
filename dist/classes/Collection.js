@@ -39,9 +39,13 @@ var Collection = function () {
   }, {
     key: "find",
     value: function find(id) {
-      this.items.forEach(function (item) {
-        if (item.id === id) return item;
-      });
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'id';
+
+      for (var i = 0; i < this.items.length; i++) {
+        if (this.items[i][key] === id) {
+          return this.items[i];
+        }
+      }
 
       return null;
     }
