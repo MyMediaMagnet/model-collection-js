@@ -79,15 +79,12 @@ class Collection {
   
     // Return an array of all the items in the collection
     get () {
-        let items = []
-      
-        this.items.forEach((item) => {
-            if (this._passesWhereQuery(item)) {
-                items.push(item)
-            }
-        })
-        
-        return new Collection(items)
+      return new Collection(this.items.filter((item) => {
+        if (this._passesWhereQuery(item)) {
+          return true
+        }
+        return false
+      }))
     }
   
     // Loop through each item in the collection

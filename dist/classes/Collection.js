@@ -126,15 +126,12 @@ var Collection = function () {
     value: function get() {
       var _this = this;
 
-      var items = [];
-
-      this.items.forEach(function (item) {
+      return new Collection(this.items.filter(function (item) {
         if (_this._passesWhereQuery(item)) {
-          items.push(item);
+          return true;
         }
-      });
-
-      return new Collection(items);
+        return false;
+      }));
     }
 
     // Loop through each item in the collection
