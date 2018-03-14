@@ -20,6 +20,12 @@ Javascript enabled Models and Collections to reflect Laravel workflow
     collection.first() // 1
     collection.last() // 4
 
+    let array = [{id: 1, name: 'First'}, {id: 2, name: 'Second'}, {id: 3, name: 'Third'}]
+    let collection = new Collection(array)
+    collection.where('name', '=', 'First').get() // returns Collection
+    collection.where('name', '=', 'First').exists() // returns true/false
+    collection.where('name', '=', 'First').first() // returns 'First'
+
 
 ## Tests
 
