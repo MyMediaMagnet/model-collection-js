@@ -43,4 +43,5 @@ describe('#numFormatter', function() {
         var result = numFormatter(12345678);
         expect(result).to.equal('12,345,678');
     });
+    
 });
