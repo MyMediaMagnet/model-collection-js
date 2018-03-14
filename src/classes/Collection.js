@@ -6,7 +6,7 @@ class Collection {
     constructor(items) {
       this.items = []
       if(items) {
-        this.items = items
+        this.collect(items)
       }
       this.wheres = []
     }
@@ -101,15 +101,7 @@ class Collection {
 
     // Given any queries, get a count of all the items in the collection
     count() {
-        let items = []
-      
-        this.items.forEach((item) => {
-            if (this._passesWhereQuery(item)) {
-                items.push(item)
-            }
-        })
-        
-        return items.length
+        return this.get().items.length
     }
 
     // PRIVATE METHODS

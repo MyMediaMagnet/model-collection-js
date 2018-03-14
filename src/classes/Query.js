@@ -13,11 +13,11 @@ class Query {
         this.wheres = []
     }
 
-    static all(callback) {
-        return axios.get('/api/' + this.table_name).then(({data}) => {
-            callback(new Collection(data))
-        });
-    }
+    // static all(callback) {
+    //     return axios.get('/api/' + this.table_name).then(({data}) => {
+    //         callback(new Collection(data))
+    //     });
+    // }
 }
 
 export default Query;

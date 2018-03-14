@@ -18,7 +18,7 @@ var Collection = function () {
 
     this.items = [];
     if (items) {
-      this.items = items;
+      this.collect(items);
     }
     this.wheres = [];
   }
@@ -154,17 +154,7 @@ var Collection = function () {
   }, {
     key: "count",
     value: function count() {
-      var _this2 = this;
-
-      var items = [];
-
-      this.items.forEach(function (item) {
-        if (_this2._passesWhereQuery(item)) {
-          items.push(item);
-        }
-      });
-
-      return items.length;
+      return this.get().items.length;
     }
 
     // PRIVATE METHODS
