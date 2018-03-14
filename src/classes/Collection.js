@@ -18,7 +18,7 @@ class Collection {
       return this
     }
   
-    // Find an item in the array based on 'id'
+    // Find an item in the collection based on 'id'
     find(id, key = 'id') {
       for(let i = 0; i < this.items.length; i++) {
         if (this.items[i][key] === id) {
@@ -68,11 +68,11 @@ class Collection {
       return this
     }
   
-    // Based on the given query, do any items exist
-    exists (item) {
-      this.items.forEach((item) => {
-          if (this._passesWhereQuery(item)) return true
-      })
+    // Based on the given query, do any items exist in the collection
+    exists () {
+      for(let i = 0; i < this.items.length; i++) {
+        if (this._passesWhereQuery(this.items[i])) return true
+      }
 
       return false
     }
@@ -87,7 +87,7 @@ class Collection {
             }
         })
         
-        return items
+        return new Collection(items)
     }
   
     // Loop through each item in the collection
@@ -118,11 +118,11 @@ class Collection {
     // PRIVATE METHODS
     // Private: used to determine if an item should be added to list based on where query
     _passesWhereQuery(item) {
-        this.wheres.forEach((where) => {
-          if (item[where[0]] !== where[2]) {
+        for(let i = 0; i < this.wheres.length; i++) {
+          if (item[this.wheres[i][0]] !== this.wheres[i][2]) {
             return false
           }
-        })
+        }
 
         return true
     }

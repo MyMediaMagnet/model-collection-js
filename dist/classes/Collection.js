@@ -34,7 +34,7 @@ var Collection = function () {
       return this;
     }
 
-    // Find an item in the array based on 'id'
+    // Find an item in the collection based on 'id'
 
   }, {
     key: "find",
@@ -107,16 +107,14 @@ var Collection = function () {
       return this;
     }
 
-    // Based on the given query, do any items exist
+    // Based on the given query, do any items exist in the collection
 
   }, {
     key: "exists",
-    value: function exists(item) {
-      var _this = this;
-
-      this.items.forEach(function (item) {
-        if (_this._passesWhereQuery(item)) return true;
-      });
+    value: function exists() {
+      for (var i = 0; i < this.items.length; i++) {
+        if (this._passesWhereQuery(this.items[i])) return true;
+      }
 
       return false;
     }
@@ -126,17 +124,17 @@ var Collection = function () {
   }, {
     key: "get",
     value: function get() {
-      var _this2 = this;
+      var _this = this;
 
       var items = [];
 
       this.items.forEach(function (item) {
-        if (_this2._passesWhereQuery(item)) {
+        if (_this._passesWhereQuery(item)) {
           items.push(item);
         }
       });
 
-      return items;
+      return new Collection(items);
     }
 
     // Loop through each item in the collection
@@ -159,12 +157,12 @@ var Collection = function () {
   }, {
     key: "count",
     value: function count() {
-      var _this3 = this;
+      var _this2 = this;
 
       var items = [];
 
       this.items.forEach(function (item) {
-        if (_this3._passesWhereQuery(item)) {
+        if (_this2._passesWhereQuery(item)) {
           items.push(item);
         }
       });
@@ -178,11 +176,11 @@ var Collection = function () {
   }, {
     key: "_passesWhereQuery",
     value: function _passesWhereQuery(item) {
-      this.wheres.forEach(function (where) {
-        if (item[where[0]] !== where[2]) {
+      for (var i = 0; i < this.wheres.length; i++) {
+        if (item[this.wheres[i][0]] !== this.wheres[i][2]) {
           return false;
         }
-      });
+      }
 
       return true;
     }

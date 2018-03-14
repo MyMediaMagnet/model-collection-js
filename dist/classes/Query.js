@@ -19,6 +19,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Query = function () {
+    // @todo still thinking about how this class whould work
+    // Ideally it will be a nice way to interact with a users api
+    // For example User.get() should maybe get a particular user from the api
+    // Any api routes would need to both have structure (CRUD) and also allow for flexible starting route names (not only 'api')
     function Query() {
         _classCallCheck(this, Query);
 
