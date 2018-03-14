@@ -13,12 +13,12 @@ Javascript enabled Models and Collections to reflect Laravel workflow
 
 ## Usage
 
-    var numFormatter = require('@jdaudier/number-formatter');
+    import Collection from 'model-collection-js'
+    let some_array = [1, 2, 3, 4]
+    let collection = new Collection(some_array)
+    collection.first() // 1
+    collection.last() // 4
 
-    var formattedNum = numFormatter(35666);
-  
-  
-  Output should be `35,666`
 
 ## Tests
 
