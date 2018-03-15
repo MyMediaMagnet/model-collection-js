@@ -26,7 +26,13 @@ Some of the most basic usage
 
 Using where's
 
-    let array = [{id: 1, name: 'First'}, {id: 2, name: 'Second'}, {id: 3, name: 'Third'}, {id: 4, name: 'Third'}]
+    import Collection from 'model-collection-js/dist/classes/Collection'
+    let array = [
+        {id: 1, name: 'First'}, 
+        {id: 2, name: 'Second'}, 
+        {id: 3, name: 'Third'}, 
+        {id: 4, name: 'Third'}
+    ]
     let collection = new Collection(array)
     collection.where('name', '=', 'First').get() // returns filtered Collection
     collection.where('name', '=', 'First').exists() // returns true/false
@@ -37,6 +43,7 @@ Using where's
 
 Setup a basic model by extending the Model class
 
+    import Model from 'model-collection-js/dist/models/Model'
     class User extends Model {
         constructor(data) {
             super(data)
@@ -50,6 +57,7 @@ Setup a basic model by extending the Model class
 
 You can also collect an array of data and make the entire collection an instance of the given model
 
+    import Model from 'model-collection-js/dist/models/Model'
     class User extends Model {
         constructor(data) {
             super(data)
