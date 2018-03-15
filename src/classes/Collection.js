@@ -71,9 +71,13 @@ class Collection {
     // Based on the given query, do any items exist in the collection
     exists () {
       for(let i = 0; i < this.items.length; i++) {
-        if (this._passesWhereQuery(this.items[i])) return true
+        if (this._passesWhereQuery(this.items[i])) {
+          this._clearWheres()
+          return true
+        }
       }
-
+      
+      this._clearWheres()
       return false
     }
   

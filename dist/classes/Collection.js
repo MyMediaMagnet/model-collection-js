@@ -113,9 +113,13 @@ var Collection = function () {
     key: "exists",
     value: function exists() {
       for (var i = 0; i < this.items.length; i++) {
-        if (this._passesWhereQuery(this.items[i])) return true;
+        if (this._passesWhereQuery(this.items[i])) {
+          this._clearWheres();
+          return true;
+        }
       }
 
+      this._clearWheres();
       return false;
     }
 
