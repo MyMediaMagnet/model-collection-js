@@ -31,7 +31,7 @@ class Collection {
   
     // Grab the first item in the collection
     first() {
-      return this.items[0]
+      return this.get().items[0]
     }
   
     // Grab the last item in the collection
@@ -79,12 +79,16 @@ class Collection {
   
     // Return an array of all the items in the collection
     get () {
-      return new Collection(this.items.filter((item) => {
+      let collection = new Collection(this.items.filter((item) => {
         if (this._passesWhereQuery(item)) {
           return true
         }
         return false
       }))
+
+      this._clearWheres()
+
+      return collection
     }
   
     // Loop through each item in the collection
@@ -114,6 +118,11 @@ class Collection {
         }
 
         return true
+    }
+
+    // Private: Clear any existing where statements
+    _clearWheres() {
+        this.wheres = []
     }
   
   }

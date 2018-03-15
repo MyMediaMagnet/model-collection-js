@@ -50,20 +50,11 @@ var Model = function (_Query) {
     _createClass(Model, [{
         key: 'set',
         value: function set(data) {
-            // Objects need to be iterated a particular way
-            if (data instanceof Object) {
-                for (var key in data) {
-                    if (data.hasOwnProperty(key)) {
-                        this[key] = data[key];
-                    }
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    this[key] = data[key];
                 }
             }
-            // Arrays we can set as normal
-            else {
-                    data.forEach(function (key, column) {
-                        this[key] = column;
-                    });
-                }
 
             return this;
         }
@@ -73,13 +64,11 @@ var Model = function (_Query) {
     }], [{
         key: 'collect',
         value: function collect(items) {
-            var _this2 = this;
-
             if (items instanceof Array || items instanceof Object) {
                 var collection = new _Collection2.default();
-                items.forEach(function (item) {
-                    collection.add(new _this2(item));
-                });
+                for (var key in items) {
+                    collection.add(new this(items[key]));
+                }
 
                 return collection;
             }

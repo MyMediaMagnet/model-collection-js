@@ -55,7 +55,7 @@ var Collection = function () {
   }, {
     key: "first",
     value: function first() {
-      return this.items[0];
+      return this.get().items[0];
     }
 
     // Grab the last item in the collection
@@ -126,12 +126,16 @@ var Collection = function () {
     value: function get() {
       var _this = this;
 
-      return new Collection(this.items.filter(function (item) {
+      var collection = new Collection(this.items.filter(function (item) {
         if (_this._passesWhereQuery(item)) {
           return true;
         }
         return false;
       }));
+
+      this._clearWheres();
+
+      return collection;
     }
 
     // Loop through each item in the collection
@@ -170,6 +174,14 @@ var Collection = function () {
       }
 
       return true;
+    }
+
+    // Private: Clear any existing where statements
+
+  }, {
+    key: "_clearWheres",
+    value: function _clearWheres() {
+      this.wheres = [];
     }
   }]);
 

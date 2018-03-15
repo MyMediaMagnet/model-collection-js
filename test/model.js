@@ -6,7 +6,11 @@ let Query = require('../dist/classes/Query').default
 
 describe('#Model', function() {
 
-    it('it should not be able to be called directly', function() {
+    it('it cannot be called as a function', function() {
+        expect(() => Model()).to.throw(TypeError)
+    });
+
+    it('it cannot be called directly', function() {
         expect(() => new Model()).to.throw(TypeError);
     });
 
@@ -14,8 +18,19 @@ describe('#Model', function() {
         expect(() => new Query()).to.throw(TypeError);
     });
 
-    it('it should collect an array of User models', function() {
+    it('its parent should not be able to be called as a function', function() {
+        expect(() => Query()).to.throw(TypeError);
+    });
+
+    it('it should collect an array of User objects', function() {
         let array = [{id: 1, name: 'Jack', email: 'jack@jones.ca'}, {id: 1, name: 'Stacy', email: 'stacy@jones.ca'}]
+        let users = User.collect(array)
+        expect(users.first().email).to.equal('jack@jones.ca');
+        expect(users.first()).to.instanceof(User);
+    });
+
+    it('it should collect an object of User objects', function() {
+        let array = {0: {id: 1, name: 'Jack', email: 'jack@jones.ca'}, 1: {id: 1, name: 'Stacy', email: 'stacy@jones.ca'}}
         let users = User.collect(array)
         expect(users.first().email).to.equal('jack@jones.ca');
         expect(users.first()).to.instanceof(User);
