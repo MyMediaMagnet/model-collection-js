@@ -14,7 +14,7 @@ Javascript enabled Models and Collections to reflect Laravel workflow
 ## Usage
 (Would appreciate advice on allowing easier imports without folder structure)
 
-#### Collection
+### Collection
 
 Some of the most basic usage
 
@@ -33,7 +33,7 @@ Using where's
     collection.where('name', '=', 'First').first() // returns {id: 1, name: 'First'}
     collection.where('name', '=', 'Third').count() // returns 2
 
-#### Model
+### Model
 
 Setup a basic model by extending the Model class
 
