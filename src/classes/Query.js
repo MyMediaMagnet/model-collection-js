@@ -1,4 +1,4 @@
-import Collection from '../classes/Collection'
+import Collection from '../classes/collection/Collection'
 import axios from 'axios'
 class Query {
     // @todo still thinking about how this class whould work

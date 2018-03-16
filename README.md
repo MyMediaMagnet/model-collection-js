@@ -18,7 +18,7 @@ Javascript enabled Models and Collections to reflect Laravel workflow
 
 Some of the most basic usage
 
-    import Collection from 'model-collection-js/dist/classes/Collection'
+    import Collection from 'model-collection-js/dist/classes/collection/Collection'
     let some_array = [1, 2, 3, 4]
     let collection = new Collection(some_array)
     collection.first() // 1
@@ -26,7 +26,7 @@ Some of the most basic usage
 
 Using where's
 
-    import Collection from 'model-collection-js/dist/classes/Collection'
+    import Collection from 'model-collection-js/dist/classes/collection/Collection'
     let array = [
         {id: 1, name: 'First'}, 
         {id: 2, name: 'Second'}, 

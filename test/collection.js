@@ -2,7 +2,8 @@
 
 var expect = require('chai').expect
 var faker = require('faker')
-let Collection = require('../dist/classes/Collection').default
+let Collection = require('../dist/classes/collection/Collection').default
+let Where = require('../dist/classes/collection/Where').default
 
 describe('#Collection', function() {
     it('it cannot be called as a function', function() {
@@ -135,13 +136,15 @@ describe('#Collection', function() {
 
         let new_collection = collection.where('first_name', '=', users[0].first_name).where('last_name', '=', users[0].last_name)
 
-        expect(collection.wheres[0][0]).to.equal('first_name')
-        expect(collection.wheres[0][1]).to.equal('=')
-        expect(collection.wheres[0][2]).to.equal(users[0].first_name)
+        expect(collection.wheres[0]).to.instanceof(Where)
 
-        expect(collection.wheres[1][0]).to.equal('last_name')
-        expect(collection.wheres[1][1]).to.equal('=')
-        expect(collection.wheres[1][2]).to.equal(users[0].last_name)
+        expect(collection.wheres[0].field_name).to.equal('first_name')
+        expect(collection.wheres[0].operand).to.equal('=')
+        expect(collection.wheres[0].value).to.equal(users[0].first_name)
+
+        expect(collection.wheres[1].field_name).to.equal('last_name')
+        expect(collection.wheres[1].operand).to.equal('=')
+        expect(collection.wheres[1].value).to.equal(users[0].last_name)
     });
 
     it('it should return a collection of items with get after setting where parameters', function() {
@@ -176,15 +179,127 @@ describe('#Collection', function() {
         
         collection.add(getUserObject(number + 1, users[0]['first_name']))
         
-        // expect(collection.where('first_name', '=', users[0].first_name).count()).to.equal(2)
+        expect(collection.where('first_name', '=', users[0].first_name).count()).to.equal(2)
+    })
+
+    // Create a random amount of users below the age of 20, and a random amount above the age of 20
+    // Our count combined with a greater than where query should line up
+    it('it should default an operand that is not found to equals', function() {
+        let users = []
+        let number_under = randomNumber()
+        for(let i = number_under; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, 5))
+        }
+
+        let number_over = randomNumber()
+        for(let i = number_over; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(21, 75)))
+        }
+        let collection = new Collection(users)
+
+        expect(collection.where('age', '@#', 5).count()).to.equal(number_under)
+    })
+
+    // Create a random amount of users below the age of 20, and a random amount above the age of 20
+    // Our count combined with a greater than where query should line up
+    it('it should be able to find items that dont equal a given value', function() {
+        let users = []
+        let number_under = randomNumber()
+        for(let i = number_under; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, 5))
+        }
+
+        let number_over = randomNumber()
+        for(let i = number_over; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(21, 75)))
+        }
+        let collection = new Collection(users)
+
+        expect(collection.where('age', '!=', 5).count()).to.equal(number_over)
+    })
+
+    // Create a random amount of users below the age of 20, and a random amount above the age of 20
+    // Our count combined with a greater than where query should line up
+    it('it should be able to find items greater than a given value', function() {
+        let users = []
+        let number_under = randomNumber()
+        for(let i = number_under; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(5, 20)))
+        }
+
+        let number_over = randomNumber()
+        for(let i = number_over; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(21, 75)))
+        }
+        let collection = new Collection(users)
+
+        expect(collection.where('age', '>', 20).count()).to.equal(number_over)
+    })
+
+    // Create a random amount of users below the age of 20, and a random amount above the age of 20
+    // Our count combined with a greater than where query should line up
+    it('it should be able to find items greater than or equal to a given value', function() {
+        let users = []
+        let number_under = randomNumber()
+        for(let i = number_under; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(5, 20)))
+        }
+
+        let number_over = randomNumber()
+        for(let i = number_over; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(21, 75)))
+        }
+        let collection = new Collection(users)
+
+        expect(collection.where('age', '>=', 21).count()).to.equal(number_over)
+    })
+
+    // Create a random amount of users below the age of 20, and a random amount above the age of 20
+    // Our count combined with a less than where query should line up
+    it('it should be able to find items less than a given value', function() {
+        let users = []
+        let number_under = randomNumber()
+        for(let i = number_under; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(5, 20)))
+        }
+
+        let number_over = randomNumber()
+        for(let i = number_over; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(21, 75)))
+        }
+        let collection = new Collection(users)
+
+        expect(collection.where('age', '<', 21).count()).to.equal(number_under)
+    })
+
+    // Create a random amount of users below the age of 20, and a random amount above the age of 20
+    // Our count combined with a less than where query should line up
+    it('it should be able to find items less than or equal to a given value', function() {
+        let users = []
+        let number_under = randomNumber()
+        for(let i = number_under; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(5, 20)))
+        }
+
+        let number_over = randomNumber()
+        for(let i = number_over; i > 0; i--) {
+            users.push(getUserObject(i, null, null, null, randomNumber(21, 75)))
+        }
+        let collection = new Collection(users)
+
+        expect(collection.where('age', '<=', 20).count()).to.equal(number_under)
     })
 
 });
 
 // Fake a new user array of user objects
-function getUsersArray(count) {
+function getUsersArray(count, first_name, last_name, email, age) {
     let users = []
     let id = 1
+    first_name = first_name ? first_name : faker.name.firstName()
+    last_name = last_name ? last_name : faker.name.lastName()
+    email = email ? email : faker.internet.email()
+    age = age ? age : randomNumber(10, 75)
     while(count > 0) {
         users.push(getUserObject(id))
         count--
@@ -195,15 +310,17 @@ function getUsersArray(count) {
 }
 
 // Fake a new user object
-function getUserObject(id = 1, first_name, last_name, email) {
+function getUserObject(id = 1, first_name, last_name, email, age) {
     first_name = first_name ? first_name : faker.name.firstName()
     last_name = last_name ? last_name : faker.name.lastName()
     email = email ? email : faker.internet.email()
+    age = age ? age : randomNumber(10, 75)
     return {
         id: id,
         first_name: first_name,
         last_name: last_name,
         email: email,
+        age: age,
         relationship: getRandomObject()
     }
 }

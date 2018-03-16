@@ -1,4 +1,5 @@
 // A useful wrapper for arrays with a variety of helpers
+import Where from './Where'
 
 class Collection {
   
@@ -63,7 +64,7 @@ class Collection {
   
     // Start a query on the collection
     where ( field_name, operand, value ) {
-      this.wheres.push([field_name, operand, value])
+      this.wheres.push(new Where(field_name, operand, value))
       
       return this
     }
@@ -116,7 +117,7 @@ class Collection {
     // Private: used to determine if an item should be added to list based on where query
     _passesWhereQuery(item) {
         for(let i = 0; i < this.wheres.length; i++) {
-          if (item[this.wheres[i][0]] !== this.wheres[i][2]) {
+          if (!this.wheres[i].passes(item)) {
             return false
           }
         }

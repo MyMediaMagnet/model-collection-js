@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _Collection = require('../classes/Collection');
+var _Collection = require('../classes/collection/Collection');
 
 var _Collection2 = _interopRequireDefault(_Collection);
 

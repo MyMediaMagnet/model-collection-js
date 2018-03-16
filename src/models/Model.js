@@ -1,4 +1,4 @@
-import Collection from '../classes/Collection'
+import Collection from '../classes/collection/Collection'
 import Query from '../classes/Query'
 class Model extends Query{
 
