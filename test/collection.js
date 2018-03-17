@@ -290,6 +290,58 @@ describe('#Collection', function() {
         expect(collection.where('age', '<=', 20).count()).to.equal(number_under)
     })
 
+    // Our count combined with a less than where query should line up
+    it('it should be able to sort items in the collection', function() {
+        let users = getUsersArray()
+        let collection = new Collection(users)
+
+        collection = collection.sort('id', 'DESC')
+
+        let last_id = null
+        for(let i = 0; i < collection.items.length; i++) {
+            if(last_id) {
+                expect(collection.items[i].id).to.greaterThan(last_id)
+            }
+            last_id = collection.items[i].id
+        }
+
+        collection = collection.sort('id', 'ASC')
+
+        last_id = null
+        for(let i = 0; i < collection.items.length; i++) {
+            if(last_id) {
+                expect(collection.items[i].id).to.lessThan(last_id)
+            }
+            last_id = collection.items[i].id
+        }
+    })
+
+    // Our count combined with a less than where query should line up
+    it('it should be able to sort items in the collection by strings', function() {
+        let users = getUsersArray()
+        let collection = new Collection(users)
+
+        collection = collection.sort('first_name', 'DESC')
+
+        let previous_name = null
+        for(let i = 0; i < collection.items.length; i++) {
+            if(previous_name) {
+                expect(collection.items[i].first_name).to.greaterThan(previous_name)
+            }
+            previous_name = collection.items[i].first_name
+        }
+
+        collection = collection.sort('first_name', 'ASC')
+
+        previous_name = null
+        for(let i = 0; i < collection.items.length; i++) {
+            if(previous_name) {
+                expect(collection.items[i].first_name).to.lessThan(previous_name)
+            }
+            previous_name = collection.items[i].first_name
+        }
+    })
+
 });
 
 // Fake a new user array of user objects

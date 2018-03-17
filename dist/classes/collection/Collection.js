@@ -170,6 +170,22 @@ var Collection = function () {
       return this.get().items.length;
     }
 
+    // Determine if a given key exists in the collection
+
+  }, {
+    key: 'sort',
+    value: function sort(key, direction) {
+      this.items = this.items.sort(function (a, b) {
+        if (direction.toLowerCase() === 'asc') {
+          return a > b;
+        } else {
+          return a < b;
+        }
+      });
+
+      return this;
+    }
+
     // PRIVATE METHODS
     // Private: used to determine if an item should be added to list based on where query
 

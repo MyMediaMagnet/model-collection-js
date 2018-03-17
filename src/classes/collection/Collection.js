@@ -113,6 +113,19 @@ class Collection {
         return this.get().items.length
     }
 
+    // Determine if a given key exists in the collection
+    sort(key, direction) {
+        this.items = this.items.sort((a, b) => {
+          if(direction.toLowerCase() === 'asc') {
+            return a > b
+          } else {
+            return a < b
+          }
+        })
+
+        return this
+    }
+
     // PRIVATE METHODS
     // Private: used to determine if an item should be added to list based on where query
     _passesWhereQuery(item) {
