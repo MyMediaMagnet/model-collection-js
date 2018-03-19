@@ -101,8 +101,8 @@ class Collection {
         // Make sure the callback is a function​
         if (typeof callback !== "function") return false
 
-        this.items.forEach(function(item) {
-          callback(item);
+        this.items.forEach(function(item, key) {
+          callback(item, key);
         })
 
         return true
@@ -113,7 +113,7 @@ class Collection {
         return this.get().items.length
     }
 
-    // Determine if a given key exists in the collection
+    // Sort the items by integers or strings
     sort(key, direction) {
         this.items = this.items.sort((a, b) => {
           if(key) {
@@ -136,7 +136,7 @@ class Collection {
         return this
     }
 
-    // Determine if a given key exists in the collection
+    // Sort the items using the date function
     sortByDate(key, direction) {
         this.items = this.items.sort((a, b) => {
           if(key) {
