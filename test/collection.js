@@ -342,6 +342,58 @@ describe('#Collection', function() {
         }
     })
 
+    // Our count combined with a less than where query should line up
+    it('it shoudnt get fooled by ascii strings', function() {
+        let users = [{name: 'Aaron'}, {name: 'ANdy'}, {name: 'BRandon'}, {name: 'BRock'}, {name: 'BRendan'}]
+        let collection = new Collection(users)
+
+        collection = collection.sort('name', 'DESC')
+
+        expect(collection.nth(4).name).to.equal('Aaron')
+        expect(collection.nth(3).name).to.equal('ANdy')
+        expect(collection.nth(2).name).to.equal('BRandon')
+        expect(collection.nth(1).name).to.equal('BRendan')
+        expect(collection.nth(0).name).to.equal('BRock')
+    })
+
+    // Our count combined with a less than where query should line up
+    it('it should be able to collect and sort a single level array', function() {
+        let users = [5, 1, 2, 4, 3]
+        let collection = new Collection(users)
+
+        collection = collection.sort(null, 'DESC')
+
+        expect(collection.nth(0)).to.equal(5)
+        expect(collection.nth(1)).to.equal(4)
+        expect(collection.nth(2)).to.equal(3)
+        expect(collection.nth(3)).to.equal(2)
+        expect(collection.nth(4)).to.equal(1)
+
+        
+    })
+
+    // Our count combined with a less than where query should line up
+    it('it should be able to sort by a date', function() {
+        let users = [{date: '1990-02-03'},{date: '1980-07-02'},{date: '1995-01-01'},{date: '02-31-1995'},{date: '1990-02-04'}]
+        let collection = new Collection(users)
+
+        collection = collection.sortByDate('date', 'ASC')
+
+        expect(collection.nth(0).date).to.equal('1980-07-02')
+        expect(collection.nth(1).date).to.equal('1990-02-03')
+        expect(collection.nth(2).date).to.equal('1990-02-04')
+        expect(collection.nth(3).date).to.equal('1995-01-01')
+        expect(collection.nth(4).date).to.equal('02-31-1995')        
+
+        collection = collection.sortByDate('date', 'DESC')
+
+        expect(collection.nth(4).date).to.equal('1980-07-02')
+        expect(collection.nth(3).date).to.equal('1990-02-03')
+        expect(collection.nth(2).date).to.equal('1990-02-04')
+        expect(collection.nth(1).date).to.equal('1995-01-01')
+        expect(collection.nth(0).date).to.equal('02-31-1995')        
+    })
+
 });
 
 // Fake a new user array of user objects

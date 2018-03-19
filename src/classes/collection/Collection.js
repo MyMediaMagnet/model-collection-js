@@ -116,10 +116,37 @@ class Collection {
     // Determine if a given key exists in the collection
     sort(key, direction) {
         this.items = this.items.sort((a, b) => {
+          if(key) {
+            a = a[key]
+            b = b[key]
+          }
+          if(typeof a === 'string') {
+            a = a.toLowerCase()
+          }
+          if(typeof b === 'string') {
+            b = b.toLowerCase()
+          }
           if(direction.toLowerCase() === 'asc') {
             return a > b
           } else {
             return a < b
+          }
+        })
+
+        return this
+    }
+
+    // Determine if a given key exists in the collection
+    sortByDate(key, direction) {
+        this.items = this.items.sort((a, b) => {
+          if(key) {
+            a = a[key]
+            b = b[key]
+          }
+          if(direction.toLowerCase() === 'asc') {
+            return new Date(a) - new Date(b)
+          } else {
+            return new Date(b) - new Date(a)
           }
         })
 
