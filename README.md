@@ -16,7 +16,7 @@ Javascript enabled Models and Collections to reflect Laravel workflow
 
 ### Collection
 
-###### Some of the most basic usage
+##### Some of the most basic usage
 
     import Collection from 'model-collection-js/dist/classes/collection/Collection'
     let some_array = [1, 2, 3, 4]
@@ -25,7 +25,7 @@ Javascript enabled Models and Collections to reflect Laravel workflow
     collection.last() // 4
     collection.nth(1) // 2 (basically just the index of the list)
 
-###### Adding and Removing items from the collection
+##### Adding and Removing items from the collection
 
     import Collection from 'model-collection-js/dist/classes/collection/Collection'
     let array = [
@@ -38,7 +38,7 @@ Javascript enabled Models and Collections to reflect Laravel workflow
     collection.add({id: 5, name: 'Fourth'}) // returns Collection with new item added
     collection.remove({id: 1, name: 'First'}) // returns Collection item removed
 
-###### Using where's
+##### Using where's
 
     import Collection from 'model-collection-js/dist/classes/collection/Collection'
     let array = [
@@ -55,7 +55,7 @@ Javascript enabled Models and Collections to reflect Laravel workflow
     collection.where('name', '=', 'Third').where('id', 3).count() // returns 1
     collection.where('name', '=', 'Third').where('id', 1).count() // returns 0
 
-###### Sorting the collection
+##### Sorting the collection
 
     import Collection from 'model-collection-js/dist/classes/collection/Collection'
     let array = [
@@ -70,7 +70,7 @@ Javascript enabled Models and Collections to reflect Laravel workflow
     collection.sortByDate('date', 'DESC') // return sorted Collection
     collection.sortByDate('date', 'ASC') // return sorted Collection
 
-###### Other Helpers
+##### Other Helpers
 
     import Collection from 'model-collection-js/dist/classes/collection/Collection'
     let array = [
