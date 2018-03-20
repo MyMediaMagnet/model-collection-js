@@ -186,6 +186,15 @@ var Collection = function () {
         if (typeof b === 'string') {
           b = b.toLowerCase();
         }
+        // Use locale compare to compare strings
+        if (typeof b === 'string' && typeof a === 'string') {
+          if (direction.toLowerCase() === 'asc') {
+            return a.localeCompare(b);
+          } else {
+            return b.localeCompare(a);
+          }
+        }
+        // Comparing integers or floats
         if (direction.toLowerCase() === 'asc') {
           return a > b;
         } else {
