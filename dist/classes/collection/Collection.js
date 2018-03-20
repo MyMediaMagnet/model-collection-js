@@ -242,6 +242,50 @@ var Collection = function () {
       return total;
     }
 
+    // Get the min of all values, or all values of a given column
+
+  }, {
+    key: 'min',
+    value: function min(key) {
+      var min = null;
+      this.items.forEach(function (item) {
+        var value = item;
+        if (key) {
+          value = item[key];
+        }
+        // If min has not been set, this becomes the min so far.  Otherwise compare the current min with this value
+        min = min && min < value ? min : value;
+      });
+
+      return min;
+    }
+
+    // Get the max of all values, or all values of a given column
+
+  }, {
+    key: 'max',
+    value: function max(key) {
+      var max = null;
+      this.items.forEach(function (item) {
+        var value = item;
+        if (key) {
+          value = item[key];
+        }
+        // If max has not been set, this becomes the max so far.  Otherwise compare the current max with this value
+        max = max && max > value ? max : value;
+      });
+
+      return max;
+    }
+
+    // Get the average of all values, or all values of a given column
+
+  }, {
+    key: 'average',
+    value: function average(key) {
+      return this.sum(key) / this.items.length;
+    }
+
     // PRIVATE METHODS
     // Private: used to determine if an item should be added to list based on where query
 

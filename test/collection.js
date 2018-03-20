@@ -406,6 +406,42 @@ describe('#Collection', function() {
 
         expect(collection.sum('count')).to.equal(10)   
     })
+    
+    it('it should be able to get a min of all items or all items by a column', function() {
+        let users = [1, 1, 2, 4]
+        let collection = new Collection(users)
+
+        expect(collection.min()).to.equal(1)   
+        
+        users = [{count: 1},{count: 3},{count: 4},{count: 2}]
+        collection = new Collection(users)
+
+        expect(collection.min('count')).to.equal(1)   
+    })
+    
+    it('it should be able to get a max of all items or all items by a column', function() {
+        let users = [1, 1, 2, 4]
+        let collection = new Collection(users)
+
+        expect(collection.max()).to.equal(4)   
+        
+        users = [{count: 1},{count: 3},{count: 4},{count: 2}]
+        collection = new Collection(users)
+
+        expect(collection.max('count')).to.equal(4)   
+    })
+    
+    it('it should be able to get an average of all items or all items by a column', function() {
+        let users = [1, 1, 2, 4]
+        let collection = new Collection(users)
+
+        expect(collection.average()).to.equal(2)   
+        
+        users = [{count: 1},{count: 3},{count: 4},{count: 2}]
+        collection = new Collection(users)
+
+        expect(collection.average('count')).to.equal(2.5)   
+    })
 
 });
 

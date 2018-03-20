@@ -176,6 +176,41 @@ class Collection {
       return total
     }
 
+    // Get the min of all values, or all values of a given column
+    min(key) {
+      let min = null
+      this.items.forEach(function(item) {
+        let value = item
+        if(key) {
+          value = item[key]
+        }
+        // If min has not been set, this becomes the min so far.  Otherwise compare the current min with this value
+        min = (min && min < value) ? min : value
+      })
+
+      return min
+    }
+
+    // Get the max of all values, or all values of a given column
+    max(key) {
+      let max = null
+      this.items.forEach(function(item) {
+        let value = item
+        if(key) {
+          value = item[key]
+        }
+        // If max has not been set, this becomes the max so far.  Otherwise compare the current max with this value
+        max = (max && max > value) ? max : value
+      })
+
+      return max
+    }
+
+    // Get the average of all values, or all values of a given column
+    average(key) {
+      return this.sum(key) / this.items.length
+    }
+
     // PRIVATE METHODS
     // Private: used to determine if an item should be added to list based on where query
     _passesWhereQuery(item) {
