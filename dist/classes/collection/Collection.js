@@ -286,6 +286,26 @@ var Collection = function () {
       return this.sum(key) / this.items.length;
     }
 
+    // Get the average of all values, or all values of a given column
+
+  }, {
+    key: 'merge',
+    value: function merge(items) {
+      var _this2 = this;
+
+      if (items instanceof Collection) {
+        items.each(function (item, key) {
+          _this2.add(item);
+        });
+      } else {
+        items.forEach(function (item) {
+          _this2.add(item);
+        });
+      }
+
+      return this;
+    }
+
     // PRIVATE METHODS
     // Private: used to determine if an item should be added to list based on where query
 

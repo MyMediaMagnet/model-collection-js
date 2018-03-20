@@ -211,6 +211,21 @@ class Collection {
       return this.sum(key) / this.items.length
     }
 
+    // Get the average of all values, or all values of a given column
+    merge(items) {
+      if(items instanceof Collection) {
+        items.each((item, key) => {
+          this.add(item)
+        })
+      } else {
+        items.forEach((item) => {
+          this.add(item)
+        })
+      }
+
+      return this
+    }
+
     // PRIVATE METHODS
     // Private: used to determine if an item should be added to list based on where query
     _passesWhereQuery(item) {

@@ -442,6 +442,29 @@ describe('#Collection', function() {
 
         expect(collection.average('count')).to.equal(2.5)   
     })
+    
+    it('it should be able to merge another collection', function() {
+        let items1 = [1, 1, 2, 4]
+        let collection1 = new Collection(items1)
+
+        let items2 = [99, 100]
+        let collection2 = new Collection(items2)  
+        
+        let collection = collection1.merge(collection2)
+
+        expect(collection.count()).to.equal(6)
+    })
+    
+    it('it should be able to merge an array into the collection', function() {
+        let items1 = [1, 1, 2, 4]
+        let collection1 = new Collection(items1)
+
+        let items2 = [99, 100]
+        
+        let collection = collection1.merge(items2)
+
+        expect(collection.count()).to.equal(6)
+    })
 
 });
 
