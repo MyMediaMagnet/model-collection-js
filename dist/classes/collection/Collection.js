@@ -155,8 +155,8 @@ var Collection = function () {
       // Make sure the callback is a function​
       if (typeof callback !== "function") return false;
 
-      this.items.forEach(function (item) {
-        callback(item);
+      this.items.forEach(function (item, key) {
+        callback(item, key);
       });
 
       return true;
@@ -170,7 +170,7 @@ var Collection = function () {
       return this.get().items.length;
     }
 
-    // Determine if a given key exists in the collection
+    // Sort the items by integers or strings
 
   }, {
     key: 'sort',
@@ -196,7 +196,7 @@ var Collection = function () {
       return this;
     }
 
-    // Determine if a given key exists in the collection
+    // Sort the items using the date function
 
   }, {
     key: 'sortByDate',
@@ -214,6 +214,23 @@ var Collection = function () {
       });
 
       return this;
+    }
+
+    // Get the sum of all values, or all values of a given column
+
+  }, {
+    key: 'sum',
+    value: function sum(key) {
+      var total = 0;
+      this.items.forEach(function (item) {
+        var value = item;
+        if (key) {
+          value = item[key];
+        }
+        total += parseFloat(value);
+      });
+
+      return total;
     }
 
     // PRIVATE METHODS

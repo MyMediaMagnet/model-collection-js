@@ -153,6 +153,20 @@ class Collection {
         return this
     }
 
+    // Get the sum of all values, or all values of a given column
+    sum(key) {
+      let total = 0
+      this.items.forEach(function(item) {
+        let value = item
+        if(key) {
+          value = item[key]
+        }
+        total += parseFloat(value)
+      })
+
+      return total
+    }
+
     // PRIVATE METHODS
     // Private: used to determine if an item should be added to list based on where query
     _passesWhereQuery(item) {

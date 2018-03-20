@@ -394,6 +394,19 @@ describe('#Collection', function() {
         expect(collection.nth(0).date).to.equal('02-31-1995')        
     })
 
+    
+    it('it should be able to get a sum of all items or all items by a column', function() {
+        let users = [1, 1, 2, 4]
+        let collection = new Collection(users)
+
+        expect(collection.sum()).to.equal(8)   
+        
+        users = [{count: 1},{count: 3},{count: 4},{count: 2}]
+        collection = new Collection(users)
+
+        expect(collection.sum('count')).to.equal(10)   
+    })
+
 });
 
 // Fake a new user array of user objects
