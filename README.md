@@ -35,8 +35,8 @@ let array = [
     {id: 4, name: 'Third'}
 ]
 let collection = new Collection(array)
-collection.add({id: 5, name: 'Fourth'}) // returns Collection with new item added
-collection.remove({id: 1, name: 'First'}) // returns Collection item removed
+collection.add({id: 5, name: 'Fourth'}) // Returns Collection with new item added
+collection.remove({id: 1, name: 'First'}) // Returns Collection item removed
 ```
 ##### Using where's
 ```es6
@@ -48,12 +48,12 @@ let array = [
     {id: 4, name: 'Third'}
 ]
 let collection = new Collection(array)
-collection.where('name', '=', 'First').get() // returns filtered Collection
-collection.where('name', '=', 'First').exists() // returns true/false
-collection.where('name', '=', 'First').first() // returns {id: 1, name: 'First'}
-collection.where('name', '=', 'Third').count() // returns 2
-collection.where('name', '=', 'Third').where('id', 3).count() // returns 1
-collection.where('name', '=', 'Third').where('id', 1).count() // returns 0
+collection.where('name', '=', 'First').get() // Returns filtered Collection
+collection.where('name', '=', 'First').exists() // Returns true/false
+collection.where('name', '=', 'First').first() // Returns {id: 1, name: 'First'}
+collection.where('name', '=', 'Third').count() // Returns 2
+collection.where('name', '=', 'Third').where('id', 3).count() // Returns 1
+collection.where('name', '=', 'Third').where('id', 1).count() // Returns 0
 ```
 ##### Sorting the collection
 ```es6
@@ -65,10 +65,13 @@ let array = [
     {id: 4, name: 'Third'}
 ]
 let collection = new Collection(array)
-collection.sort('name', 'DESC') // return sorted Collection
-collection.sort('name', 'ASC') // return sorted Collection
-collection.sortByDate('date', 'DESC') // return sorted Collection
-collection.sortByDate('date', 'ASC') // return sorted Collection
+collection.sort('name', 'DESC') // Returns sorted Collection
+collection.sort('name', 'ASC') // Returns sorted Collection
+collection.sortByDate('date', 'DESC') // Returns sorted Collection
+collection.sortByDate('date', 'ASC') // Returns sorted Collection
+
+let basic_collection = new Collection([1,2,3,4])
+basic_collection.sort(null, 'DESC') // Returns sorted Collection
 ```
 ##### Other Helpers
 ```es6
@@ -79,14 +82,26 @@ let array = [
     {id: 3, name: 'Third'}, 
     {id: 4, name: 'Third'}
 ]
+
 let collection = new Collection(array)
 collection.each(function(item, key){
-// Perform an action on each item in the collection
-}) 
+    // Perform an action on each item in the collection
+})
+
 // The find method is a method most useful when collecting objects with an 'id'
-collection.find(3) // Return {id:3, name: 'Third'}
-collection.find(1) // Return {id:1, name: 'First'}
-collection.find('Second', 'name') // Return {id:2, name: 'Second'} (you can override the primary key if you want)
+collection.find(3) // Returns {id:3, name: 'Third'}
+collection.find(1) // Returns {id:1, name: 'First'}
+collection.find('Second', 'name') // Returns {id:2, name: 'Second'} (you can override the primary key if you want)
+
+// Mins maxes and averages
+collection.min('id') // Returns 1
+collection.max('id') // Returns 4
+collection.average('id') // Returns 2.5
+
+let basic_collection = new Collection([1,2,3,4])
+basic_collection.min() // Returns 1
+basic_collection.max() // Returns 4
+basic_collection.average() // Returns 2.5
 ```
 ### Model
 Setup a basic model by extending the Model class
@@ -101,7 +116,7 @@ class User extends Model {
 let user_data = {id: 1, name: 'Some Name'}
 
 let user = new User(user_data)
-user.name // returns 'Some Name'
+user.name // Returns 'Some Name'
 ```
 You can also collect an array of data and make the entire collection an instance of the given model
 ```es6
@@ -114,9 +129,9 @@ class User extends Model {
 
 let user_data = [{id: 1, name: 'Some Name'}, {id: 1, name: 'Some Other Name'}]
 let users = User.collect(user_data)
-users.first() // returns User model
-users.first().name // returns 'Some Name'
-users.last().name // returns 'Some Other Name'
+users.first() // Returns User model
+users.first().name // Returns 'Some Name'
+users.last().name // Returns 'Some Other Name'
 ```
 
 ## Tests
