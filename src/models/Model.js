@@ -1,5 +1,5 @@
 import Collection from '../classes/collection/Collection'
-import Query from '../classes/Query'
+import Query from './Query'
 class Model extends Query{
 
     // Setup a new Model instance

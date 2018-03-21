@@ -43,6 +43,14 @@ describe('#Model', function() {
         expect(user.email).to.equal('jack@jones.ca');
         expect(user).to.instanceof(User);
     });
+
+    it('it creates api routes based on the extending model', function() {
+        let object = {id: 1, name: 'Jack', email: 'jack@jones.ca'}
+        let user = new User()
+        user.set(object)
+        expect(user.route).to.equal('users');
+        expect(user.getFullPath()).to.equal('/api/users/');
+    });
 });
 
 class User extends Model {

@@ -10,7 +10,7 @@ var _Collection = require('../classes/collection/Collection');
 
 var _Collection2 = _interopRequireDefault(_Collection);
 
-var _Query2 = require('../classes/Query');
+var _Query2 = require('./Query');
 
 var _Query3 = _interopRequireDefault(_Query2);
 
