@@ -15,6 +15,12 @@ describe('#Query', function() {
     it('it cannot be called as a function', function() {
         expect(() => Query()).to.throw(TypeError)
     });
+
+    it('it should create an index url for a model', function() {
+        let path = User.getFullPath()
+
+        expect(path).to.equal('/api/users/')
+    });
     
 });
 

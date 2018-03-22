@@ -12,10 +12,6 @@ class Query {
         if (new.target === Query) {
             throw new TypeError("Cannot construct Query instances directly");
         }
-
-        this.base_url = '/'
-        this.api_route = 'api'
-        this.route = pluralize.plural(this.constructor.name).toLowerCase()
     }
 
     // Make sure any class extending this is able to collect data
@@ -23,15 +19,27 @@ class Query {
         throw new Error('The collect method has not been properly implemented in the Query child class');
     }
 
+    static baseUrl() {
+        return '/'
+    }
+
+    static apiRoute() {
+        return 'api'
+    }
+
+    static route() {
+        return pluralize.plural(this.name).toLowerCase()
+    }
+
     // Get the full base path for all api calls on this model
-    getFullPath() {
-        return this.base_url + this.api_route + '/' + this.route + '/'
+    static getFullPath() {
+        return this.baseUrl() + this.apiRoute() + '/' + this.route() + '/'
     }
 
     // Do an index api call
     static index(params) {
         return new Promise((resolve, reject) => {
-            return axios.get(this.getFullPath, {params: params}).then(({data}) => {
+            return axios.get(this.getFullPath(), {params: params}).then(({data}) => {
                 resolve(this.collect(data))
             }).catch((e) => {
                 reject(e)
@@ -42,7 +50,7 @@ class Query {
     // Get a particular item from the api
     static get(id, callback) {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath + 'get', params).then(({data}) => {
+            return axios.post(this.getFullPath() + 'get', params).then(({data}) => {
                 resolve(new this(data))
             }).catch((e) => {
                 reject(e)
@@ -53,7 +61,7 @@ class Query {
     // Create an item of this model type
     static create(data, callback) {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath + 'get', params).then(({data}) => {
+            return axios.post(this.getFullPath() + 'get', params).then(({data}) => {
                 resolve(new this(data))
             }).catch((e) => {
                 reject(e)
@@ -64,7 +72,7 @@ class Query {
     // Update this item containing the primary key
     static update(data, callback) {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath + 'get', params).then(({data}) => {
+            return axios.post(this.getFullPath() + 'get', params).then(({data}) => {
                 resolve(new this(data))
             }).catch((e) => {
                 reject(e)
@@ -75,7 +83,7 @@ class Query {
     // Delete an item by id
     static delete(id, callback) {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath + 'delete', params).then(({data}) => {
+            return axios.post(this.getFullPath() + 'delete', params).then(({data}) => {
                 resolve(data)
             }).catch((e) => {
                 reject(e)

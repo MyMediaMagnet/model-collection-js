@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 let Model = require('../dist/models/Model').default
-let Query = require('../dist/classes/Query').default
+let Query = require('../dist/models/Query').default
 
 describe('#Model', function() {
 
@@ -48,8 +48,8 @@ describe('#Model', function() {
         let object = {id: 1, name: 'Jack', email: 'jack@jones.ca'}
         let user = new User()
         user.set(object)
-        expect(user.route).to.equal('users');
-        expect(user.getFullPath()).to.equal('/api/users/');
+        expect(User.route()).to.equal('users');
+        expect(User.getFullPath()).to.equal('/api/users/');
     });
 });
 

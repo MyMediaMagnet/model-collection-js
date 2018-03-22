@@ -32,10 +32,6 @@ var Query = function () {
         if (new.target === Query) {
             throw new TypeError("Cannot construct Query instances directly");
         }
-
-        this.base_url = '/';
-        this.api_route = 'api';
-        this.route = pluralize.plural(this.constructor.name).toLowerCase();
     }
 
     // Make sure any class extending this is able to collect data
@@ -46,24 +42,39 @@ var Query = function () {
         value: function collect(data) {
             throw new Error('The collect method has not been properly implemented in the Query child class');
         }
+    }], [{
+        key: 'baseUrl',
+        value: function baseUrl() {
+            return '/';
+        }
+    }, {
+        key: 'apiRoute',
+        value: function apiRoute() {
+            return 'api';
+        }
+    }, {
+        key: 'route',
+        value: function route() {
+            return pluralize.plural(this.name).toLowerCase();
+        }
 
         // Get the full base path for all api calls on this model
 
     }, {
         key: 'getFullPath',
         value: function getFullPath() {
-            return this.base_url + this.api_route + '/' + this.route + '/';
+            return this.baseUrl() + this.apiRoute() + '/' + this.route() + '/';
         }
 
         // Do an index api call
 
-    }], [{
+    }, {
         key: 'index',
         value: function index(params) {
             var _this = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.get(_this.getFullPath, { params: params }).then(function (_ref) {
+                return _axios2.default.get(_this.getFullPath(), { params: params }).then(function (_ref) {
                     var data = _ref.data;
 
                     resolve(_this.collect(data));
@@ -81,7 +92,7 @@ var Query = function () {
             var _this2 = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this2.getFullPath + 'get', params).then(function (_ref2) {
+                return _axios2.default.post(_this2.getFullPath() + 'get', params).then(function (_ref2) {
                     var data = _ref2.data;
 
                     resolve(new _this2(data));
@@ -99,7 +110,7 @@ var Query = function () {
             var _this3 = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this3.getFullPath + 'get', params).then(function (_ref3) {
+                return _axios2.default.post(_this3.getFullPath() + 'get', params).then(function (_ref3) {
                     var data = _ref3.data;
 
                     resolve(new _this3(data));
@@ -117,7 +128,7 @@ var Query = function () {
             var _this4 = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this4.getFullPath + 'get', params).then(function (_ref4) {
+                return _axios2.default.post(_this4.getFullPath() + 'get', params).then(function (_ref4) {
                     var data = _ref4.data;
 
                     resolve(new _this4(data));
@@ -135,7 +146,7 @@ var Query = function () {
             var _this5 = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this5.getFullPath + 'delete', params).then(function (_ref5) {
+                return _axios2.default.post(_this5.getFullPath() + 'delete', params).then(function (_ref5) {
                     var data = _ref5.data;
 
                     resolve(data);

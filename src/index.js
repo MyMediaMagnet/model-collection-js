@@ -1,5 +1,5 @@
 'use strict';
 
 import Collection from './classes/Collection'
-import Query from './classes/Query'
+import Query from './models/Query'
 import Model from './models/Model'
