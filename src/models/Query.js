@@ -48,9 +48,9 @@ class Query {
     }
 
     // Get a particular item from the api
-    static get(id, callback) {
+    static get(id) {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath() + 'get', params).then(({data}) => {
+            return axios.post(this.getFullPath() + 'get', {id: id}).then(({data}) => {
                 resolve(new this(data))
             }).catch((e) => {
                 reject(e)
@@ -61,7 +61,7 @@ class Query {
     // Create an item of this model type
     static create(data, callback) {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath() + 'get', params).then(({data}) => {
+            return axios.post(this.getFullPath() + 'create', data).then(({data}) => {
                 resolve(new this(data))
             }).catch((e) => {
                 reject(e)
@@ -72,7 +72,7 @@ class Query {
     // Update this item containing the primary key
     static update(data, callback) {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath() + 'get', params).then(({data}) => {
+            return axios.post(this.getFullPath() + 'update', data).then(({data}) => {
                 resolve(new this(data))
             }).catch((e) => {
                 reject(e)

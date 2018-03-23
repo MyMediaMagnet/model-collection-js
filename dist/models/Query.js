@@ -88,11 +88,11 @@ var Query = function () {
 
     }, {
         key: 'get',
-        value: function get(id, callback) {
+        value: function get(id) {
             var _this2 = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this2.getFullPath() + 'get', params).then(function (_ref2) {
+                return _axios2.default.post(_this2.getFullPath() + 'get', { id: id }).then(function (_ref2) {
                     var data = _ref2.data;
 
                     resolve(new _this2(data));
@@ -110,7 +110,7 @@ var Query = function () {
             var _this3 = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this3.getFullPath() + 'get', params).then(function (_ref3) {
+                return _axios2.default.post(_this3.getFullPath() + 'create', data).then(function (_ref3) {
                     var data = _ref3.data;
 
                     resolve(new _this3(data));
@@ -128,7 +128,7 @@ var Query = function () {
             var _this4 = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this4.getFullPath() + 'get', params).then(function (_ref4) {
+                return _axios2.default.post(_this4.getFullPath() + 'update', data).then(function (_ref4) {
                     var data = _ref4.data;
 
                     resolve(new _this4(data));
