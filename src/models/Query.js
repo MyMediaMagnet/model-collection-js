@@ -48,9 +48,10 @@ class Query {
     }
 
     // Get a particular item from the api
-    static get(id) {
+    // Use extended_url to extend the url for more specifc get routes in your api
+    static get(id, extended_url = '') {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath() + 'get', {id: id}).then(({data}) => {
+            return axios.post(this.getFullPath() + 'get/' + extended_url, {id: id}).then(({data}) => {
                 resolve(new this(data))
             }).catch((e) => {
                 reject(e)
@@ -59,7 +60,7 @@ class Query {
     }
 
     // Create an item of this model type
-    static create(data, callback) {
+    static create(data) {
         return new Promise((resolve, reject) => {
             return axios.post(this.getFullPath() + 'create', data).then(({data}) => {
                 resolve(new this(data))
@@ -70,7 +71,7 @@ class Query {
     }
 
     // Update this item containing the primary key
-    static update(data, callback) {
+    static update(data) {
         return new Promise((resolve, reject) => {
             return axios.post(this.getFullPath() + 'update', data).then(({data}) => {
                 resolve(new this(data))
@@ -81,9 +82,9 @@ class Query {
     }
 
     // Delete an item by id
-    static delete(id, callback) {
+    static delete(id) {
         return new Promise((resolve, reject) => {
-            return axios.post(this.getFullPath() + 'delete', params).then(({data}) => {
+            return axios.post(this.getFullPath() + 'delete', {id: id}).then(({data}) => {
                 resolve(data)
             }).catch((e) => {
                 reject(e)

@@ -85,14 +85,17 @@ var Query = function () {
         }
 
         // Get a particular item from the api
+        // Use extended_url to extend the url for more specifc get routes in your api
 
     }, {
         key: 'get',
         value: function get(id) {
             var _this2 = this;
 
+            var extended_url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this2.getFullPath() + 'get', { id: id }).then(function (_ref2) {
+                return _axios2.default.post(_this2.getFullPath() + 'get/' + extended_url, { id: id }).then(function (_ref2) {
                     var data = _ref2.data;
 
                     resolve(new _this2(data));
@@ -106,7 +109,7 @@ var Query = function () {
 
     }, {
         key: 'create',
-        value: function create(data, callback) {
+        value: function create(data) {
             var _this3 = this;
 
             return new Promise(function (resolve, reject) {
@@ -124,7 +127,7 @@ var Query = function () {
 
     }, {
         key: 'update',
-        value: function update(data, callback) {
+        value: function update(data) {
             var _this4 = this;
 
             return new Promise(function (resolve, reject) {
@@ -142,11 +145,11 @@ var Query = function () {
 
     }, {
         key: 'delete',
-        value: function _delete(id, callback) {
+        value: function _delete(id) {
             var _this5 = this;
 
             return new Promise(function (resolve, reject) {
-                return _axios2.default.post(_this5.getFullPath() + 'delete', params).then(function (_ref5) {
+                return _axios2.default.post(_this5.getFullPath() + 'delete', { id: id }).then(function (_ref5) {
                     var data = _ref5.data;
 
                     resolve(data);
