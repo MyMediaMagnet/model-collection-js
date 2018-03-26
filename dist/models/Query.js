@@ -42,6 +42,11 @@ var Query = function () {
         value: function collect(data) {
             throw new Error('The collect method has not been properly implemented in the Query child class');
         }
+    }, {
+        key: 'route',
+        value: function route() {
+            return pluralize.plural(this.constructor.name).toLowerCase();
+        }
     }], [{
         key: 'baseUrl',
         value: function baseUrl() {

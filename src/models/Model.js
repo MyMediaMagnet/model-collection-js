@@ -1,5 +1,6 @@
 import Collection from '../classes/collection/Collection'
 import Query from './Query'
+import Relationship from './Relationship'
 class Model extends Query{
 
     // Setup a new Model instance
@@ -21,7 +22,13 @@ class Model extends Query{
     set(data) {
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
-                this[key] = data[key];
+                if(typeof this[key] == "function") {
+                    // Setup the data for method access
+                    this['_' + key] = data[key]
+                } else {
+                    // Add the data as a property
+                    this[key] = data[key];
+                }
             }
         }
 
@@ -40,6 +47,25 @@ class Model extends Query{
         }
         
         return new Collection()
+    }
+
+    // Relationship Methods
+    // Use the relationship class to extend other model classes and give shorthand functionality
+
+    // Belongs To
+    hasOne(instance) {
+        let data = this['_' + instance.constructor.name.toLowerCase()]
+
+        return instance.set(data)
+    }
+
+    // Has Many
+    hasMany(instance) {
+        // We want to figure out information dynamically here about the caller of this method
+        // For example: user.posts().create({...}) we want to be able to send in who the user is so we are aware of it when creating the post
+        let items = this['_' + instance.route()]
+
+        return new Relationship(instance, items)
     }
 
 }

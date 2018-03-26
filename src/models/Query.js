@@ -27,6 +27,10 @@ class Query {
         return 'api'
     }
 
+    route() {
+        return pluralize.plural(this.constructor.name).toLowerCase()
+    }
+
     static route() {
         return pluralize.plural(this.name).toLowerCase()
     }

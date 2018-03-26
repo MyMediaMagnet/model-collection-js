@@ -14,6 +14,10 @@ var _Query2 = require('./Query');
 
 var _Query3 = _interopRequireDefault(_Query2);
 
+var _Relationship = require('./Relationship');
+
+var _Relationship2 = _interopRequireDefault(_Relationship);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -52,7 +56,13 @@ var Model = function (_Query) {
         value: function set(data) {
             for (var key in data) {
                 if (data.hasOwnProperty(key)) {
-                    this[key] = data[key];
+                    if (typeof this[key] == "function") {
+                        // Setup the data for method access
+                        this['_' + key] = data[key];
+                    } else {
+                        // Add the data as a property
+                        this[key] = data[key];
+                    }
                 }
             }
 
@@ -61,6 +71,31 @@ var Model = function (_Query) {
 
         // Create a collection consisting of this model
 
+    }, {
+        key: 'hasOne',
+
+
+        // Relationship Methods
+        // Use the relationship class to extend other model classes and give shorthand functionality
+
+        // Belongs To
+        value: function hasOne(instance) {
+            var data = this['_' + instance.constructor.name.toLowerCase()];
+
+            return instance.set(data);
+        }
+
+        // Has Many
+
+    }, {
+        key: 'hasMany',
+        value: function hasMany(instance) {
+            // We want to figure out information dynamically here about the caller of this method
+            // For example: user.posts().create({...}) we want to be able to send in who the user is so we are aware of it when creating the post
+            var items = this['_' + instance.route()];
+
+            return new _Relationship2.default(instance, items);
+        }
     }], [{
         key: 'collect',
         value: function collect(items) {
