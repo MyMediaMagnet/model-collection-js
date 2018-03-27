@@ -1,6 +1,6 @@
 {
   "name": "model-collection-js",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Javascript enabled Models and Collections to reflect Laravel workflow",
   "main": "dist/index.js",
   "scripts": {
