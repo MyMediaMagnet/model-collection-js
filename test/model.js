@@ -70,7 +70,7 @@ describe('#Model', function() {
         let user = new User(object)
 
         user.posts().create({id: 3, title: 'The Newest'}).catch(e => {
-            expect(e.config.data.user_id).to.equal(99)
+            expect(JSON.parse(e.config.data).user_id).to.equal(99)
             expect(e.config.url).to.equal('/api/posts/create')
         })
     });

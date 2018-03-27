@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -11,48 +11,58 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Relationship = function () {
 
     // Setup a new Model instance
-    function Relationship(instance, items) {
+    function Relationship(instance, items, caller) {
         _classCallCheck(this, Relationship);
 
         this.instance = instance;
         this.items = items;
+        this.caller = caller;
         this.collection = null;
     }
 
     _createClass(Relationship, [{
-        key: "first",
+        key: 'first',
         value: function first() {
             return this.getCollection().first();
         }
     }, {
-        key: "last",
+        key: 'last',
         value: function last() {
             return this.getCollection().last();
         }
     }, {
-        key: "nth",
+        key: 'nth',
         value: function nth(i) {
             return this.getCollection().nth(i);
         }
     }, {
-        key: "get",
+        key: 'get',
         value: function get() {
             return this.getCollection().items;
         }
     }, {
-        key: "create",
+        key: 'create',
         value: function create(data) {
-            // This should dynamically get the id of the extending class...
-            // For example: user.posts().create({...}) should automagically send in the user_id with the post content
+            var field_name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+            var key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'id';
+
+            // Given this create is happening on a relationship
+            // Also send in the id of the related class via the caller property
+            if (!field_name) {
+                field_name = this.caller.classNameLower + '_' + key;
+            }
+
+            data[field_name] = this.caller[key];
+
             return Promise.resolve(this.instance.constructor.create(data));
         }
     }, {
-        key: "collect",
+        key: 'collect',
         value: function collect() {
             return this.getCollection();
         }
     }, {
-        key: "getCollection",
+        key: 'getCollection',
         value: function getCollection() {
             if (!this.collection) {
                 this.collection = this.instance.constructor.collect(this.items);

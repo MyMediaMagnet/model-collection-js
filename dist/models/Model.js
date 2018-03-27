@@ -26,6 +26,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var pluralize = require('pluralize');
+
 var Model = function (_Query) {
     _inherits(Model, _Query);
 
@@ -94,7 +96,20 @@ var Model = function (_Query) {
             // For example: user.posts().create({...}) we want to be able to send in who the user is so we are aware of it when creating the post
             var items = this['_' + instance.route()];
 
-            return new _Relationship2.default(instance, items);
+            return new _Relationship2.default(instance, items, this);
+        }
+
+        // Helper Methods
+
+    }, {
+        key: 'classNameLower',
+        get: function get() {
+            return this.constructor.name.toLowerCase();
+        }
+    }, {
+        key: 'classNamePlural',
+        get: function get() {
+            return pluralize.plural(this.constructor.name).toLowerCase();
         }
     }], [{
         key: 'collect',

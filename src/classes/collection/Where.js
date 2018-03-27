@@ -6,7 +6,13 @@ import LessThan from './operands/LessThan'
 import LessThanOrEqual from './operands/LessThanOrEqual'
 
 class Where {
-    // Construct a where statement
+    /**
+     * Construct a where statement
+     * 
+     * @param {*} field_name 
+     * @param {*} operand 
+     * @param {*} value 
+     */
     constructor(field_name, operand, value) {
         this.field_name = field_name
         this.operand = operand
@@ -15,12 +21,18 @@ class Where {
         this.operandClass = this.setupOperand()
     }
 
-    // Confirm that the given values pass the check based on the given operand
+    /**
+     * Confirm that the given values pass the check based on the given operand
+     * 
+     * @param {*} item 
+     */
     passes(item) {
         return this.operandClass.check(item[this.field_name], this.value)
     }
 
-    // Set the class to handle the check based on the operand
+    /**
+     * Set the class to handle the check based on the operand
+     */
     setupOperand() {
         switch(this.operand) {
             case '=':
