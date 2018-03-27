@@ -9,7 +9,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Operand = function () {
-    // Any api routes would need to both have structure (CRUD) and also allow for flexible starting route names (not only 'api')
+
+    /**
+     * Any api routes would need to both have structure (CRUD)
+     * and also allow for flexible starting route names (not only 'api')
+     */
     function Operand() {
         _classCallCheck(this, Operand);
 
@@ -17,6 +21,14 @@ var Operand = function () {
             throw new TypeError("Cannot construct Operand instances directly");
         }
     }
+
+    /**
+     * This method should be extended to provide the logic for a given check
+     * 
+     * @param {*} actual 
+     * @param {*} expected 
+     */
+
 
     _createClass(Operand, [{
         key: "check",

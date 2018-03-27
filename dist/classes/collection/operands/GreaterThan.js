@@ -31,7 +31,12 @@ var GreaterThan = function (_Operand) {
         key: 'check',
 
 
-        // Confirm the actual value is greater than the expected value
+        /**
+         * Confirm the actual value is greater than the expected value
+         * 
+         * @param {*} actual 
+         * @param {*} expected 
+         */
         value: function check(actual, expected) {
             return actual > expected;
         }

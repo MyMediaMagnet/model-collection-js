@@ -4,8 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // A useful wrapper for arrays with a variety of helpers
-
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _Where = require('./Where');
 
@@ -15,9 +14,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * A useful wrapper for arrays with a variety of helpers
+ */
 var Collection = function () {
 
-  // Setup a new collection from an array
+  /**
+   * Setup a new collection from an array
+   * 
+   * @param {*} items 
+   */
   function Collection(items) {
     _classCallCheck(this, Collection);
 
@@ -28,7 +34,11 @@ var Collection = function () {
     this.wheres = [];
   }
 
-  // Set the items in the collection
+  /**
+   * Set the items in the collection
+   * 
+   * @param {*} items 
+   */
 
 
   _createClass(Collection, [{
@@ -39,7 +49,12 @@ var Collection = function () {
       return this;
     }
 
-    // Find an item in the collection based on 'id'
+    /**
+     * Find an item in the collection based on the primary key
+     * 
+     * @param {*} id 
+     * @param {*} key 
+     */
 
   }, {
     key: 'find',
@@ -55,7 +70,9 @@ var Collection = function () {
       return null;
     }
 
-    // Grab the first item in the collection
+    /**
+     * Return the first item in the collection
+     */
 
   }, {
     key: 'first',
@@ -63,7 +80,9 @@ var Collection = function () {
       return this.get().items[0];
     }
 
-    // Grab the last item in the collection
+    /**
+     * Return the last item in the collection
+     */
 
   }, {
     key: 'last',
@@ -71,7 +90,11 @@ var Collection = function () {
       return this.items[this.items.length - 1];
     }
 
-    // Grab nth item in the collection
+    /**
+     * Grab nth item in the collection
+     * 
+     * @param {*} nth 
+     */
 
   }, {
     key: 'nth',
@@ -79,7 +102,11 @@ var Collection = function () {
       return this.items[_nth];
     }
 
-    // Add an item to the collection
+    /**
+     * Add an item to the collection
+     * 
+     * @param {*} item 
+     */
 
   }, {
     key: 'add',
@@ -89,7 +116,11 @@ var Collection = function () {
       return this;
     }
 
-    // Remove an item from the collection
+    /**
+     * Remove an item from the collection
+     * 
+     * @param {*} item 
+     */
 
   }, {
     key: 'remove',
@@ -102,7 +133,13 @@ var Collection = function () {
       return this;
     }
 
-    // Start a query on the collection
+    /**
+     * Start a query on the collection
+     * 
+     * @param {*} field_name 
+     * @param {*} operand 
+     * @param {*} value 
+     */
 
   }, {
     key: 'where',
@@ -112,7 +149,10 @@ var Collection = function () {
       return this;
     }
 
-    // Based on the given query, do any items exist in the collection
+    /**
+     * Based on the given query, do any items exist in the collection
+     * @todo fix issue related to this method
+     */
 
   }, {
     key: 'exists',
@@ -128,7 +168,9 @@ var Collection = function () {
       return false;
     }
 
-    // Return an array of all the items in the collection
+    /**
+     * Return an array of all the items in the collection
+     */
 
   }, {
     key: 'get',
@@ -147,12 +189,16 @@ var Collection = function () {
       return collection;
     }
 
-    // Loop through each item in the collection
+    /**
+     * Assuming the parameter sent in is a function
+     * loop through each item in the collection
+     * 
+     * @param {*} callback 
+     */
 
   }, {
     key: 'each',
     value: function each(callback) {
-      // Make sure the callback is a function​
       if (typeof callback !== "function") return false;
 
       this.items.forEach(function (item, key) {
@@ -162,7 +208,9 @@ var Collection = function () {
       return true;
     }
 
-    // Given any queries, get a count of all the items in the collection
+    /**
+     * Given any wheres, get a count of all the items in the collection
+     */
 
   }, {
     key: 'count',
@@ -170,7 +218,12 @@ var Collection = function () {
       return this.get().items.length;
     }
 
-    // Sort the items by integers or strings
+    /**
+     * Sort the items by integers or strings
+     * 
+     * @param {*} key 
+     * @param {*} direction 
+     */
 
   }, {
     key: 'sort',
@@ -205,7 +258,12 @@ var Collection = function () {
       return this;
     }
 
-    // Sort the items using the date function
+    /**
+     * Sort the items using the date function
+     * 
+     * @param {*} key 
+     * @param {*} direction 
+     */
 
   }, {
     key: 'sortByDate',
@@ -225,7 +283,11 @@ var Collection = function () {
       return this;
     }
 
-    // Get the sum of all values, or all values of a given column
+    /**
+     * Get the sum of all values, or all values of a given column
+     * 
+     * @param {*} key 
+     */
 
   }, {
     key: 'sum',
@@ -242,7 +304,11 @@ var Collection = function () {
       return total;
     }
 
-    // Get the min of all values, or all values of a given column
+    /**
+     * Get the min of all values, or all values of a given column
+     * 
+     * @param {*} key 
+     */
 
   }, {
     key: 'min',
@@ -260,7 +326,11 @@ var Collection = function () {
       return min;
     }
 
-    // Get the max of all values, or all values of a given column
+    /**
+     * Get the max of all values, or all values of a given column
+     * 
+     * @param {*} key 
+     */
 
   }, {
     key: 'max',
@@ -278,7 +348,11 @@ var Collection = function () {
       return max;
     }
 
-    // Get the average of all values, or all values of a given column
+    /**
+     * Get the average of all values, or all values of a given column
+     * 
+     * @param {*} key 
+     */
 
   }, {
     key: 'average',
@@ -286,7 +360,12 @@ var Collection = function () {
       return this.sum(key) / this.items.length;
     }
 
-    // Get the average of all values, or all values of a given column
+    /**
+     * If a collection is sent in, merge that collection into this collection
+     * If an array is sent in, merge the array into this collection
+     * 
+     * @param {*} items 
+     */
 
   }, {
     key: 'merge',
@@ -306,8 +385,17 @@ var Collection = function () {
       return this;
     }
 
-    // PRIVATE METHODS
-    // Private: used to determine if an item should be added to list based on where query
+    /**
+     ***********************************
+     * PRIVATE METHODS
+     ***********************************
+     */
+
+    /**
+     * Private: used to determine if an item should be added to list based on where query
+     * 
+     * @param {*} item 
+     */
 
   }, {
     key: '_passesWhereQuery',
@@ -321,7 +409,9 @@ var Collection = function () {
       return true;
     }
 
-    // Private: Clear any existing where statements
+    /**
+     * Private: Clear any existing where statements
+     */
 
   }, {
     key: '_clearWheres',

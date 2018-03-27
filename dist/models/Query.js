@@ -22,10 +22,11 @@ var pluralize = require('pluralize');
 
 var Query = function () {
 
-    // @todo still thinking about how this class whould work
-    // Ideally it will be a nice way to interact with an api
-    // For example User.get(1) should maybe get a particular user from the api
-    // Any api routes would need to both have structure (CRUD) and also allow for flexible starting route names (not only 'api')
+    /**
+     * A handy way to use your models to interact with an API
+     * Example: User.get(1) makes a post request to /api/users/ with the data {id: 1} and will 
+     * automatically convert the response into a User model
+     */
     function Query() {
         _classCallCheck(this, Query);
 
@@ -34,7 +35,11 @@ var Query = function () {
         }
     }
 
-    // Make sure any class extending this is able to collect data
+    /**
+     * Make sure any class extending this is able to collect data
+     * 
+     * @param {*} data 
+     */
 
 
     _createClass(Query, [{
@@ -42,16 +47,38 @@ var Query = function () {
         value: function collect(data) {
             throw new Error('The collect method has not been properly implemented in the Query child class');
         }
+
+        /**
+         * Return the start of the url used to make api requests
+         * This method can be overwritten do accomodate different URL patterns
+         */
+
     }, {
         key: 'route',
+
+
+        /**
+         * Return the extending class name, lowercase and plural
+         */
         value: function route() {
             return pluralize.plural(this.constructor.name).toLowerCase();
         }
+
+        /**
+         * Static: Return the extending class name, lowercase and plural
+         */
+
     }], [{
         key: 'baseUrl',
         value: function baseUrl() {
             return '/';
         }
+
+        /**
+         * Return the piece of the url that contain the api indicator
+         * This method can be overwritten do accomodate different URL patterns
+         */
+
     }, {
         key: 'apiRoute',
         value: function apiRoute() {
@@ -63,7 +90,9 @@ var Query = function () {
             return pluralize.plural(this.name).toLowerCase();
         }
 
-        // Get the full base path for all api calls on this model
+        /**
+         * Get the full base path for all api calls on this model
+         */
 
     }, {
         key: 'getFullPath',
@@ -71,7 +100,11 @@ var Query = function () {
             return this.baseUrl() + this.apiRoute() + '/' + this.route() + '/';
         }
 
-        // Do an index api call
+        /**
+         * Do an index api call
+         * 
+         * @param {*} params 
+         */
 
     }, {
         key: 'index',
@@ -89,8 +122,13 @@ var Query = function () {
             });
         }
 
-        // Get a particular item from the api
-        // Use extended_url to extend the url for more specifc get routes in your api
+        /**
+         * Get a particular item from the api
+         * Use extended_url to extend the url for more specifc get routes in your api
+         * 
+         * @param {*} id 
+         * @param {*} extended_url 
+         */
 
     }, {
         key: 'get',
@@ -110,7 +148,11 @@ var Query = function () {
             });
         }
 
-        // Create an item of this model type
+        /**
+         * Create an item of this model type
+         * 
+         * @param {*} data 
+         */
 
     }, {
         key: 'create',
@@ -128,7 +170,11 @@ var Query = function () {
             });
         }
 
-        // Update this item containing the primary key
+        /**
+         * Update this item containing the primary key
+         * 
+         * @param {*} data 
+         */
 
     }, {
         key: 'update',
@@ -146,7 +192,11 @@ var Query = function () {
             });
         }
 
-        // Delete an item by id
+        /**
+         * Delete an item by id
+         * 
+         * @param {*} id 
+         */
 
     }, {
         key: 'delete',

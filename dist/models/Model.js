@@ -31,7 +31,12 @@ var pluralize = require('pluralize');
 var Model = function (_Query) {
     _inherits(Model, _Query);
 
-    // Setup a new Model instance
+    /**
+     * Setup a new Model instance
+     * If any data is sent in, set it as properties
+     * 
+     * @param {*} data 
+     */
     function Model(data) {
         _classCallCheck(this, Model);
 
@@ -39,9 +44,6 @@ var Model = function (_Query) {
             throw new TypeError("Cannot construct Model instances directly");
         }
 
-        // Call the Query constructor
-
-        // If data is sent in, set it as properties
         var _this = _possibleConstructorReturn(this, (Model.__proto__ || Object.getPrototypeOf(Model)).call(this));
 
         if (data) {
@@ -50,7 +52,11 @@ var Model = function (_Query) {
         return _this;
     }
 
-    // Set all the data from an array or object as properties of this Model
+    /**
+     * Set all the data from an array or object as properties of this Model
+     * 
+     * @param {*} data 
+     */
 
 
     _createClass(Model, [{
@@ -71,41 +77,70 @@ var Model = function (_Query) {
             return this;
         }
 
-        // Create a collection consisting of this model
+        /**
+         * Create a collection consisting of this model
+         * 
+         * @param {*} items 
+         */
 
     }, {
         key: 'hasOne',
 
 
-        // Relationship Methods
-        // Use the relationship class to extend other model classes and give shorthand functionality
+        /**
+         ********************************************
+         * Relationship Methods
+         ********************************************
+         */
 
-        // Belongs To
+        /**
+         * Use the relationship class to extend other model classes and give shorthand functionality
+         * 
+         * @param {*} instance 
+         * @returns Model
+         */
         value: function hasOne(instance) {
             var data = this['_' + instance.constructor.name.toLowerCase()];
 
             return instance.set(data);
         }
 
-        // Has Many
+        /**
+         * Return a relationship that contains information about it's caller and the caller's parent
+         * Example: user.posts().create({...}) we want to be able to send in who the user is so we are aware of it when creating the post
+         * 
+         * @param {*} instance 
+         * @returns Relationship
+         */
 
     }, {
         key: 'hasMany',
         value: function hasMany(instance) {
-            // We want to figure out information dynamically here about the caller of this method
-            // For example: user.posts().create({...}) we want to be able to send in who the user is so we are aware of it when creating the post
             var items = this['_' + instance.route()];
 
             return new _Relationship2.default(instance, items, this);
         }
 
-        // Helper Methods
+        /**
+         ********************************************
+         * Getters
+         ********************************************
+         */
+
+        /**
+         * Return the original class name in a singler, lowercase format
+         */
 
     }, {
         key: 'classNameLower',
         get: function get() {
             return this.constructor.name.toLowerCase();
         }
+
+        /**
+         * Return the original class name in a plural, lowercase format
+         */
+
     }, {
         key: 'classNamePlural',
         get: function get() {

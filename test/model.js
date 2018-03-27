@@ -98,6 +98,7 @@ describe('#Model', function() {
         expect(post.comments()).to.instanceof(Relationship);
         expect(post.comments().first().user().name).to.equal('Jack')
         expect(post.comments().last().user().name).to.equal('Jones')
+        expect(post.comments().get()).to.instanceof(Array)
     });
 
 

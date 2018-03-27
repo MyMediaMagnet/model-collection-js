@@ -35,7 +35,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Where = function () {
-    // Construct a where statement
+    /**
+     * Construct a where statement
+     * 
+     * @param {*} field_name 
+     * @param {*} operand 
+     * @param {*} value 
+     */
     function Where(field_name, operand, value) {
         _classCallCheck(this, Where);
 
@@ -46,7 +52,11 @@ var Where = function () {
         this.operandClass = this.setupOperand();
     }
 
-    // Confirm that the given values pass the check based on the given operand
+    /**
+     * Confirm that the given values pass the check based on the given operand
+     * 
+     * @param {*} item 
+     */
 
 
     _createClass(Where, [{
@@ -55,7 +65,9 @@ var Where = function () {
             return this.operandClass.check(item[this.field_name], this.value);
         }
 
-        // Set the class to handle the check based on the operand
+        /**
+         * Set the class to handle the check based on the operand
+         */
 
     }, {
         key: 'setupOperand',

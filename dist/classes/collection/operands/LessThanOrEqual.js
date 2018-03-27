@@ -31,7 +31,12 @@ var LessThanOrEqual = function (_Operand) {
         key: 'check',
 
 
-        // Confirm the actual value is less than or equal to the expected value
+        /**
+         * Confirm the actual value is less than or equal to the expected value
+         * 
+         * @param {*} actual 
+         * @param {*} expected 
+         */
         value: function check(actual, expected) {
             return actual <= expected;
         }

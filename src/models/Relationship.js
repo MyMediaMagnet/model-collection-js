@@ -39,6 +39,20 @@ class Relationship{
     }
 
     /**
+     * Add an item to the collection in this relationship
+     */
+    add (item) {
+        return this.getCollection().add(item)
+    }
+
+    /**
+     * Add an item to the collection in this relationship
+     */
+    count () {
+        return this.getCollection().count()
+    }
+
+    /**
      * Send an API request based on the calling model along with data from the parent of this relationship
      */
     create (data, field_name = null, key = 'id') {
