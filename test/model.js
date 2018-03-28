@@ -99,6 +99,11 @@ describe('#Model', function() {
         expect(post.comments().first().user().name).to.equal('Jack')
         expect(post.comments().last().user().name).to.equal('Jones')
         expect(post.comments().get()).to.instanceof(Array)
+
+        post.comments().add({id:1002, body: 'some new comment', user:{id: 102, name: 'James', email: 'james@tester.com'}})
+
+        expect(post.comments().count()).to.equal(3)
+        expect(post.comments().last().id).to.equal(1002)
     });
 
 

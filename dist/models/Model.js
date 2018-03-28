@@ -44,7 +44,10 @@ var Model = function (_Query) {
             throw new TypeError("Cannot construct Model instances directly");
         }
 
+        // Save any relationships so we don't always create a new relationship class when called
         var _this = _possibleConstructorReturn(this, (Model.__proto__ || Object.getPrototypeOf(Model)).call(this));
+
+        _this.relations = [];
 
         if (data) {
             _this.set(data);
@@ -116,9 +119,14 @@ var Model = function (_Query) {
     }, {
         key: 'hasMany',
         value: function hasMany(instance) {
-            var items = this['_' + instance.route()];
+            var key = '_' + instance.route();
+            var items = this[key];
 
-            return new _Relationship2.default(instance, items, this);
+            if (!this.relations[key]) {
+                this.relations[key] = new _Relationship2.default(instance, items, this);
+            }
+
+            return this.relations[key];
         }
 
         /**

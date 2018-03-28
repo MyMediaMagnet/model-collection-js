@@ -17,6 +17,9 @@ class Model extends Query{
 
         super()
 
+        // Save any relationships so we don't always create a new relationship class when called
+        this.relations = []
+
         if(data) {
             this.set(data)
         }
@@ -87,9 +90,14 @@ class Model extends Query{
      * @returns Relationship
      */
     hasMany(instance) {
-        let items = this['_' + instance.route()]
+        let key = '_' + instance.route()
+        let items = this[key]
 
-        return new Relationship(instance, items, this)
+        if(!this.relations[key]) {
+            this.relations[key] = new Relationship(instance, items, this)
+        }
+
+        return this.relations[key]
     }
 
     /**
